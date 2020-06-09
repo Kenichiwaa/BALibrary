@@ -1,26 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="ui container">
+      <div className="ui secondary pointing menu">
+        <div className="right menu">
+          <button className="ui item active">Top Albums</button>
+          <button className="ui item">Favorite Albums</button>
+        </div>
+      </div>
+      <div className="ui content">
+        <div>{this.state.albums.map((v) => card(v))}</div>
+      </div>
     </div>
   );
-}
-
-export default App;
+};
