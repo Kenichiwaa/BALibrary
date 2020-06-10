@@ -1,26 +1,37 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const ImgCard = styled.div`
+  font-size: 1em;
+  max-width: 240px;
+  text-align: center;
+`;
+
+const ImgWrapper = styled.div`
+
+`;
+
+const ArtistName = styled.div`
+  font-weight: bolder;
+`
+
+const ArtistTitle = styled.div`
+`
 
 class MusicCard extends React.Component {
   render() {
     const album = this.props.album;
     return (
-      <div className="ui card">
-        <div className="image">
-          <img />
-          <div className="content">
-            <a className="header">Kristy</a>
-            <div className="description">Description</div>
-            <div className="description">Description</div>
-          </div>
-          <div className="extra content">
-            <a>
-              <i className="user icon"></i>
-              22 Friends
-            </a>
-          </div>
-        </div>
-      </div>
+      <ImgCard className="ui card">
+        <ImgWrapper className="image">
+          <img src={this.props.img}/>
+        </ImgWrapper>
+        <ArtistName className="header">{this.props.artist}</ArtistName>
+        <hr />
+        <ArtistTitle className="title">{this.props.title}</ArtistTitle>
+        <i className="user icon"></i>
+      </ImgCard>
     );
   }
 }
@@ -28,7 +39,7 @@ class MusicCard extends React.Component {
 MusicCard.propTypes = {
   key: PropTypes.string,
   img: PropTypes.string,
-  name: PropTypes.string,
+  artist: PropTypes.string,
   title: PropTypes.string,
   favorite: PropTypes.bool,
 };
@@ -36,7 +47,7 @@ MusicCard.propTypes = {
 MusicCard.defaultProps = {
   key: '11111111',
   img: null,
-  name: 'ABLibrary',
+  artist: 'ABLibrary',
   title: 'title',
   favorite: false,
 };

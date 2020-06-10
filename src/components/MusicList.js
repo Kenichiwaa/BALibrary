@@ -8,18 +8,23 @@ const MusicList = (props) => {
 
   const albumCards = props.albums.map((album, index) => {
     console.log("album", album);
-    console.log("album", album.id.attributes["im:id"]);
-    console.log("album", album["im:image"][0].label);
-    return <MusicCard
-                key={album.id.attributes["im:id"]} 
-                img={album["img:image"]}
-                name={'name'}
-                title={'title'}
-                favorite={false}
-            />;
+    console.log("image", album["im:image"][0].label);
+    console.log("name", album["im:artist"].label);
+    console.log("title", album["im:name"].label);
+    console.log("///////////////////");
+
+    return (
+      <MusicCard
+        key={album.id.attributes["im:id"]}
+        img={album["im:image"][0].label}
+        artist={album["im:artist"].label}
+        title={album["im:name"].label}
+        favorite={false}
+      />
+    );
   });
 
-  return <div className="container">{albumCards}</div>;
+  return <div className="ui cards">{albumCards}</div>;
 };
 
 export default MusicList;
