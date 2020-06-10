@@ -4,7 +4,7 @@ import MusicCard from "./MusicCard";
 // import './ImageList.css'
 
 const MusicList = (props) => {
-
+    console.log('props', props)
   const albumCards = props.albums.map(album => {
     return (
       <MusicCard
@@ -12,6 +12,8 @@ const MusicList = (props) => {
         img={album["im:image"][0].label}
         artist={album["im:artist"].label}
         title={album["im:name"].label}
+        favorite={album.favorite}
+        setFavorite={() => this.props.isFavorite}
       />
     );
   });

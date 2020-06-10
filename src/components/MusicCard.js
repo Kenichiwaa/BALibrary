@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const ImgCard = styled.div`
+  width: 200px !important;
   text-align: center;
   padding: 1em !important;
   background-color: lightgray !important;
@@ -13,49 +14,39 @@ const ArtistName = styled.div`
   padding: 0.5em;
 `;
 
-const ArtistTitle = styled.div`
-`;
+const ArtistTitle = styled.div``;
 
 const FavoriteWrapper = styled.div`
   padding-top: 1em;
 `;
 
 const FavoriteIcon = styled.i`
-  color: ${({ color }) => (color ? 'yellow' : 'blue')};
+  color: ${({ isFavorite }) => (isFavorite ? "yellow" : "black")};
+`;
 
-`
+const MusicCard = (album) => {
+  console.log("alvumb", album);
+  const key = album.info.id.attributes["im:id"];
+  const img = album.info["im:image"][0].label;
+  const artist = album.info["im:artist"].label;
+  const title = album.info["im:name"].label;
 
-class MusicCard extends React.Component {
-  render() {
-    return (
-      <ImgCard className="ui card">
-        <div className="image">
-          <img src={this.props.img} />
-        </div>
-        <ArtistName className="header">{this.props.artist}</ArtistName>
-        <ArtistTitle className="title">{this.props.title}</ArtistTitle>
-        <FavoriteWrapper>
-          <FavoriteIcon className="favorite icon" color={this.props.favorite} />
-        </FavoriteWrapper>
-      </ImgCard>
-    );
-  }
-}
-
-MusicCard.propTypes = {
-  key: PropTypes.string,
-  img: PropTypes.string,
-  artist: PropTypes.string,
-  title: PropTypes.string,
-  favorite: PropTypes.bool,
+  return (
+    <ImgCard className="ui card">
+      <div className="image">
+        <img src={img} />
+      </div>
+      <ArtistName className="header">{artist}</ArtistName>
+      <ArtistTitle className="title">{title}</ArtistTitle>
+      <FavoriteWrapper>
+        <FavoriteIcon className="favorite icon" />
+      </FavoriteWrapper>
+    </ImgCard>
+  );
 };
 
-MusicCard.defaultProps = {
-  key: "11111111",
-  img: null,
-  artist: "ABLibrary",
-  title: "title",
-  favorite: true,
-};
+MusicCard.propTypes = {};
+
+MusicCard.defaultProps = {};
 
 export default MusicCard;
