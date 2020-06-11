@@ -13,6 +13,9 @@ const StyledReactModal = styled(ReactModal)`
     outline: none;
   }
 `;
+const StyledImg = styled.img`
+  width: 100%;
+`;
 
 const FavoriteWrapper = styled.div`
   padding-top: 1em;
@@ -36,18 +39,20 @@ const titles = [
 
 const MusicModal = ({
   modalIsOpen,
-  modalInfo,
+  albumInfo,
   setFavorite,
   handleCloseModal,
 }) => {
-  const details = [
-    { name: modalInfo["im:name"].label },
-    { favorite: modalInfo.favorite },
-  ];
+  const img = albumInfo["im:image"][2].label;
+  const id = albumInfo.id.attributes["im:id"];
+  const favorite = albumInfo.favorite;
+  const title = albumInfo["im:name"].label;
+  const artist = albumInfo["im:artist"].label;
+  const category = albumInfo.category.attributes.label;
+  const itemCount = albumInfo["im:itemCount"].label;
+  const price = albumInfo["im:price"].label;
 
-  console.log("details", details);
-  console.log("details", details.name);
-  console.log("modalInfo", modalInfo);
+  const details = [title, artist, category, itemCount, price];
 
   return (
     <StyledReactModal
@@ -55,10 +60,9 @@ const MusicModal = ({
       ariaHideApp={false}
       contentLabel="Minimal Modal Example"
     >
-      {console.log("modalinfxxx", modalInfo)}
       <div className="ui grid">
         <div className="three wide column">
-          <img src={modalInfo["im:image"][2].label} />
+          <StyledImg src={img} alt={details.title} />
         </div>
         <div className="nine wide column">
           <div className="ui grid container">
@@ -72,26 +76,24 @@ const MusicModal = ({
               })}
             </div>
             <div className="eight wide column">
-              <row>
-                <p>{modalInfo["im:name"].label}</p>
-              </row>
-              <p>{modalInfo["im:artist"].label}</p>
-              <p>{modalInfo.category.attributes.label}</p>
-              <p>{modalInfo["im:itemCount"].label}</p>
-              <p>{modalInfo["im:price"].label}</p>
+              {details.map((title) => {
+                return (
+                  <row>
+                    <StyledTitle>{title}</StyledTitle>
+                  </row>
+                );
+              })}
             </div>
           </div>
           <FavoriteWrapper>
             <FavoriteIcon
               className="favorite icon"
               onClick={setFavorite}
-              id={modalInfo.id.attributes["im:id"]}
-              isFavorite={modalInfo.favorite}
+              id={id}
+              isFavorite={favorite}
             />
-            <button onClick={setFavorite} id={modalInfo.id.attributes["im:id"]}>
-              {modalInfo.favorite
-                ? "Remove from Favorites"
-                : "Add to Favorites"}
+            <button onClick={setFavorite} id={id}>
+              {favorite ? "Remove from Favorites" : "Add to Favorites"}
             </button>
           </FavoriteWrapper>
         </div>

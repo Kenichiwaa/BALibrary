@@ -20,21 +20,19 @@ const StyledCardsWrapper = styled.div`
 
 function App() {
   const [currAlbums, setCurrAlbums] = useState();
-  const [albums, setAlbums] = useState();
+  const [allAlbums, setAllAlbums] = useState();
   const [isModalOpen, setIsOpen] = useState(false);
-  const [modalInfo, setModalInfo] = useState();
+  const [albumInfo, setAlbumInfo] = useState();
 
   useEffect(() => {
     fetchTopAlbums().then((res) => {
       let data = res.feed.entry.map((v) => ({ ...v, favorite: false }));
       setCurrAlbums(data);
-      setAlbums(data);
     });
   }, []);
 
   const handleOpenModal = (e) => {
-    e.cancelBubble = true;
-    setModalInfo(
+    setAlbumInfo(
       currAlbums.find((item) => {
         if (e.target.id === item.id.attributes["im:id"]) return item;
       })
@@ -51,19 +49,20 @@ function App() {
       if (id.target.id === item.id.attributes["im:id"])
         return (item.favorite = item.favorite === false ? true : false);
     });
-    setAlbums([...currAlbums], album);
+    setCurrAlbums([...currAlbums], album);
   };
 
   const getFavoriteAlbums = () => {
     let favoriteAlbums = [];
-    albums.map((album) => {
+    currAlbums.map((album) => {
       if (album.favorite === true) favoriteAlbums.push(album);
     });
-    return setCurrAlbums(favoriteAlbums);
+    setAllAlbums(currAlbums);
+    setCurrAlbums(favoriteAlbums);
   };
 
   const geAllAlbums = () => {
-    return setCurrAlbums(albums);
+    return setCurrAlbums(allAlbums);
   };
 
   return (
@@ -82,7 +81,7 @@ function App() {
       {isModalOpen ? (
         <MusicModal
           modalIsOpen={isModalOpen}
-          modalInfo={modalInfo}
+          albumInfo={albumInfo}
           setFavorite={setFavorite}
           handleCloseModal={handleCloseModal}
         />

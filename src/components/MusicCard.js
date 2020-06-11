@@ -26,7 +26,7 @@ const FavoriteIcon = styled.i`
   color: ${({ isFavorite }) => (isFavorite ? "yellow" : "black")};
 `;
 
-const MusicCard = ({album, key, setFavorite, openModel}) => {
+const MusicCard = ({album, setFavorite, openModel}) => {
   const id = album.id.attributes["im:id"];
   const img = album["im:image"][2].label;
   const artist = album["im:artist"].label;
@@ -48,6 +48,9 @@ const MusicCard = ({album, key, setFavorite, openModel}) => {
 };
 
 // MusicCard.PropTypes = {
+//   album: PropTypes.object,
+//   setFavorite: PropTypes.func,
+//   openModel: PropTypes.func
 // };
 
 // MusicCard.defaultProps = {};
