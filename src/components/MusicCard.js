@@ -26,33 +26,30 @@ const FavoriteIcon = styled.i`
   color: ${({ isFavorite }) => (isFavorite ? "yellow" : "black")};
 `;
 
-const MusicCard = (info, setFavorite) => {
-  const id = info.info.id.attributes["im:id"];
-  const img = info.info["im:image"][0].label;
-  const artist = info.info["im:artist"].label;
-  const title = info.info["im:name"].label;
-  const favorite = info.info.favorite
-
-  const openModal = () => {
-    alert(id)
-  }
+const MusicCard = ({album, key, setFavorite, openModel}) => {
+  const id = album.id.attributes["im:id"];
+  const img = album["im:image"][0].label;
+  const artist = album["im:artist"].label;
+  const title = album["im:name"].label;
+  const favorite = album.favorite;
 
   return (
-    <ImgCard className="ui card" onClick={openModal}>
-      <div className="image">
+    <ImgCard className="ui card" onClick={openModel} id={id}>
+      <div className="image" >
         <img src={img} />
       </div>
       <ArtistName className="header">{artist}</ArtistName>
       <ArtistTitle className="title">{title}</ArtistTitle>
       <FavoriteWrapper>
-        <FavoriteIcon className="favorite icon" onClick={info.setFavorite} id={id} isFavorite={favorite} />
+        <FavoriteIcon className="favorite icon" onClick={setFavorite} id={id} isFavorite={favorite} />
       </FavoriteWrapper>
     </ImgCard>
   );
 };
 
-MusicCard.propTypes = {};
+// MusicCard.PropTypes = {
+// };
 
-MusicCard.defaultProps = {};
+// MusicCard.defaultProps = {};
 
 export default MusicCard;
