@@ -24,17 +24,33 @@ function App() {
   const [isModalOpen, setIsOpen] = useState(false);
   const [albumInfo, setAlbumInfo] = useState();
 
+  const LOCAL_STORAGE_KEY = "MyABLAlbums";
+
   useEffect(() => {
-    fetchTopAlbums().then((res) => {
-      let data = res.feed.entry.map((v) => ({ ...v, favorite: false }));
-      setCurrAlbums(data);
-    });
+    const localStorageData = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY)
+    );
+
+    if (localStorageData) {
+      setCurrAlbums(JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)));
+    } else {
+      fetchTopAlbums().then((res) => {
+        let data = res.feed.entry.map((v) => ({ ...v, favorite: false }));
+        setCurrAlbums(data);
+      });
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currAlbums));
+  });
 
   const handleOpenModal = (e) => {
     setAlbumInfo(
       currAlbums.find((item) => {
-        if (e.target.id === item.id.attributes["im:id"]) return item;
+        if (e.target.id === item.id.attributes["im:id"]) {
+          return item;
+        }
       })
     );
     setIsOpen(true);
@@ -45,6 +61,7 @@ function App() {
   }
 
   const setFavorite = (id) => {
+    console.log("setFavorite event.taget.value ", id.target);
     let album = currAlbums.find((item) => {
       if (id.target.id === item.id.attributes["im:id"])
         return (item.favorite = item.favorite === false ? true : false);
@@ -55,7 +72,7 @@ function App() {
   const getFavoriteAlbums = () => {
     let favoriteAlbums = [];
     currAlbums.map((album) => {
-      if (album.favorite === true) favoriteAlbums.push(album);
+      if (album.favorite === true) return favoriteAlbums.push(album);
     });
     setAllAlbums(currAlbums);
     setCurrAlbums(favoriteAlbums);
