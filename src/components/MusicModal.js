@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const StyledReactModal = styled(ReactModal)`
   background-color: #c4d4d8;
-  height: 41vh;
+  height: 340px;
   padding: 3em;
   padding-top: 6em;
   box-shadow: 0px 4px 7px 0px rgba(50, 50, 49, 0.4);
@@ -67,20 +67,20 @@ const MusicModal = ({
         <div className="nine wide column">
           <div className="ui grid container">
             <div className="four wide column">
-              {titles.map((title) => {
+              {titles.map((title, index) => {
                 return (
-                  <row>
+                  <div className="ui row" key={index}>
                     <StyledTitle>{title}</StyledTitle>
-                  </row>
+                  </div>
                 );
               })}
             </div>
             <div className="eight wide column">
-              {details.map((title) => {
+              {details.map((title, index) => {
                 return (
-                  <row>
+                  <div className="ui row" key={index}>
                     <StyledTitle>{title}</StyledTitle>
-                  </row>
+                  </div>
                 );
               })}
             </div>

@@ -36,7 +36,7 @@ const MusicCard = ({album, setFavorite, openModel}) => {
   return (
     <ImgCard className="ui card" onClick={openModel} id={id}>
       <div className="image" >
-        <img src={img} />
+        <img src={img} alt={title}/>
       </div>
       <ArtistName className="header">{artist}</ArtistName>
       <ArtistTitle className="title">{title}</ArtistTitle>
