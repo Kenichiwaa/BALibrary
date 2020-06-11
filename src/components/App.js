@@ -4,7 +4,7 @@ import fetchTopAlbums from "../data/top-albums";
 import MusicCard from "./MusicCard";
 
 function App() {
-  const [albums, setAlbums] = useState(null);
+  const [albums, setAlbums] = useState();
 
   useEffect(() => {
     fetchTopAlbums().then((res) => {
@@ -12,8 +12,12 @@ function App() {
     });
   }, []);
 
-  const setFavorite = (v) => {
-    return console.log("this is it", v);
+  const setFavorite = (id) => {
+    let album = albums.find((item) => {
+      if (id.target.id === item.id.attributes["im:id"])
+        return item.favorite = (item.favorite === false ? true : false);
+    });
+    setAlbums([...albums], album);
   };
 
   return (
@@ -26,13 +30,8 @@ function App() {
       </div>
       <div className="ui cards">
         {albums ? (
-          albums.map((album) => {console.log('albummap', album)
-            return (
-              <MusicCard
-                info={album}
-                setFavorite={() => this.props.isFavorite}
-              />
-            );
+          albums.map((album) => {
+            return <MusicCard info={album} setFavorite={setFavorite} />;
           })
         ) : (
           <div>loading</div>

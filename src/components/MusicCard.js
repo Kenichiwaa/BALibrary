@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const ImgCard = styled.div`
-  width: 200px !important;
+&.ui.card {
+  width: 200px;
   text-align: center;
-  padding: 1em !important;
-  background-color: lightgray !important;
+  padding: 1em;
+  background-color: lightgray;
+}
 `;
 
 const ArtistName = styled.div`
@@ -24,12 +26,12 @@ const FavoriteIcon = styled.i`
   color: ${({ isFavorite }) => (isFavorite ? "yellow" : "black")};
 `;
 
-const MusicCard = (album) => {
-  console.log("alvumb", album);
-  const key = album.info.id.attributes["im:id"];
-  const img = album.info["im:image"][0].label;
-  const artist = album.info["im:artist"].label;
-  const title = album.info["im:name"].label;
+const MusicCard = (info, setFavorite) => {
+  const id = info.info.id.attributes["im:id"];
+  const img = info.info["im:image"][0].label;
+  const artist = info.info["im:artist"].label;
+  const title = info.info["im:name"].label;
+  const favorite = info.info.favorite
 
   return (
     <ImgCard className="ui card">
@@ -39,7 +41,7 @@ const MusicCard = (album) => {
       <ArtistName className="header">{artist}</ArtistName>
       <ArtistTitle className="title">{title}</ArtistTitle>
       <FavoriteWrapper>
-        <FavoriteIcon className="favorite icon" />
+        <FavoriteIcon className="favorite icon" onClick={info.setFavorite} id={id} isFavorite={favorite} />
       </FavoriteWrapper>
     </ImgCard>
   );

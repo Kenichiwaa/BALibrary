@@ -1,8 +1,6 @@
 import React from "react";
 import MusicCard from "./MusicCard";
 
-// import './ImageList.css'
-
 const MusicList = (props) => {
     console.log('props', props)
   const albumCards = props.albums.map(album => {
