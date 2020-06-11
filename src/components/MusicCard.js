@@ -33,8 +33,12 @@ const MusicCard = (info, setFavorite) => {
   const title = info.info["im:name"].label;
   const favorite = info.info.favorite
 
+  const openModal = () => {
+    alert(id)
+  }
+
   return (
-    <ImgCard className="ui card">
+    <ImgCard className="ui card" onClick={openModal}>
       <div className="image">
         <img src={img} />
       </div>
