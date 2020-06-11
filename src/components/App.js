@@ -121,27 +121,47 @@ function App() {
           contentLabel="Minimal Modal Example"
         >
           {console.log("modalinfxxx", modalInfo)}
-          <img src={modalInfo["im:image"][0].label} />
-          <h5>Albuum Name</h5>
-          {modalInfo["im:name"].label}
-          <h5>Artist Name</h5>
-          {modalInfo["im:artist"].label}
-          <h5>Category</h5>
-          {modalInfo.category.label}
-          <h5>Number of Songs</h5>
-          {modalInfo["im:itemCount"].label}
-          <h5>Price</h5>
-          {modalInfo.["im:Price"].label}
+          <div class="ui grid container">
+            <div class="three wide column">
+              <img src={modalInfo["im:image"][2].label} />
+            </div>
+            <div class="nine wide column">
+              <div class="ui grid container">
+                <div class="four wide column">
+                  <h5>Album Name</h5>
+                  <h5>Artist Name</h5>
+                  <h5>Category</h5>
+                  <h5>Number of Songs</h5>
+                  <h5>Price</h5>
+                </div>
+                <div class="eight wide column">
+                  <p>{modalInfo["im:name"].label}</p>
+                  <p>{modalInfo["im:artist"].label}</p>
+                  <p>{modalInfo.category.attributes.label}</p>
+                  <p>{modalInfo["im:itemCount"].label}</p>
+                  <p>{modalInfo["im:price"].label}</p>
+                </div>
+              </div>
+              <FavoriteWrapper>
+                <FavoriteIcon
+                  className="favorite icon"
+                  onClick={setFavorite}
+                  id={modalInfo.id.attributes["im:id"]}
+                  isFavorite={modalInfo.favorite}
+                />
+                <button
+                  onClick={setFavorite}
+                  id={modalInfo.id.attributes["im:id"]}
+                >
+                  {modalInfo.favorite
+                    ? "Remove from Favorites"
+                    : "Add to Favorites"}
+                </button>
+              </FavoriteWrapper>
+            </div>
+          </div>
 
           <button onClick={handleCloseModal}>Close Modal</button>
-          <FavoriteWrapper>
-            <FavoriteIcon
-              className="favorite icon"
-              onClick={setFavorite}
-              id={modalInfo.id.attributes["im:id"]}
-              isFavorite={modalInfo.favorite}
-            />
-          </FavoriteWrapper>
         </ReactModal>
       ) : (
         <div></div>

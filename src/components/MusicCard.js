@@ -28,7 +28,7 @@ const FavoriteIcon = styled.i`
 
 const MusicCard = ({album, key, setFavorite, openModel}) => {
   const id = album.id.attributes["im:id"];
-  const img = album["im:image"][0].label;
+  const img = album["im:image"][2].label;
   const artist = album["im:artist"].label;
   const title = album["im:name"].label;
   const favorite = album.favorite;
