@@ -32,7 +32,7 @@ function App() {
       localStorage.getItem(LOCAL_STORAGE_KEY)
     );
 
-    if (localStorageData.length > 99) {
+    if (localStorageData !== null && localStorageData.length > 99) {
       setCurrAlbums(JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)));
     } else {
       fetchTopAlbums().then((res) => {
