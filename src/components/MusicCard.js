@@ -3,10 +3,8 @@ import styled from "styled-components";
 
 const ImgCard = styled.div`
   &.ui.card {
-    margin: 0 auto;
     margin-bottom: 1em;
     width: 180px;
-    text-align: center;
     padding: 1em;
     background-color: lightgray;
   }

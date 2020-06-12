@@ -7,7 +7,7 @@ import MusicModal from "./MusicModal";
 
 const StyledNav = styled.div`
   &.ui.menu {
-    background-color: #72B7AE;
+    background-color: #72b7ae;
     padding-left: 1em;
   }
 `;
@@ -31,12 +31,14 @@ function App() {
     const localStorageData = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_KEY)
     );
-    if (localStorageData) {
+
+    if (localStorageData.length > 99) {
       setCurrAlbums(JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)));
     } else {
       fetchTopAlbums().then((res) => {
         let data = res.feed.entry.map((v) => ({ ...v, favorite: false }));
         setCurrAlbums(data);
+        setAllAlbums(data);
       });
     }
   }, []);
@@ -47,13 +49,9 @@ function App() {
 
   const handleOpenModal = (e) => {
     setAlbumInfo(
-      currAlbums.find((item) => {
-        if (e.target.id === item.id.attributes["im:id"]) {
-          return item;
-        }
-      })
+      currAlbums.find((item) => e.target.id === item.id.attributes["im:id"])
     );
-    setModalOpen(true);
+    return setModalOpen(true);
   };
 
   function handleCloseModal() {
@@ -61,12 +59,12 @@ function App() {
   }
 
   const setFavorite = (id) => {
-    console.log("setFavorite event.taget.value ", id.target);
-    let album = currAlbums.find((item) => {
+    let album = allAlbums.find((item) => {
       if (id.target.id === item.id.attributes["im:id"])
         return (item.favorite = item.favorite === false ? true : false);
     });
-    setCurrAlbums([...currAlbums], album);
+    setCurrAlbums([...allAlbums], album);
+    setAllAlbums([...allAlbums], album);
   };
 
   const getFavoriteAlbums = () => {
@@ -86,8 +84,8 @@ function App() {
   return (
     <div className="ui container">
       <StyledNav className="ui secondary pointing menu top fixed">
-      <div className=" menu left">
-        <h1>Top Albums </h1>
+        <div className=" menu left">
+          <h1>Top Albums </h1>
         </div>
         <div className="right menu">
           <button className="ui item" onClick={geAllAlbums}>
@@ -110,7 +108,7 @@ function App() {
         <div></div>
       )}
 
-      <StyledCardsWrapper className="ui cards">
+      <StyledCardsWrapper className="ui centered cards">
         {currAlbums ? (
           currAlbums.map((album, index) => {
             return (

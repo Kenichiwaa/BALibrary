@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const StyledReactModal = styled(ReactModal)`
   background-color: #c4d4d8;
-  height: 410px;
+  height: auto;
   padding: 3em;
   padding-top: 6em;
   box-shadow: 0px 4px 7px 0px rgba(50, 50, 49, 0.4);
@@ -17,16 +17,13 @@ const StyledImg = styled.img`
   width: 100%;
 `;
 
-const FavoriteWrapper = styled.div`
-  padding-top: 1em;
-`;
-
 const FavoriteIcon = styled.i`
   color: ${({ isFavorite }) => (isFavorite ? "yellow" : "black")};
+  padding-right: 2em;
 `;
 
 const StyledTitle = styled.h5`
-  height: 35px;
+  height: 40px;
 `;
 
 const titles = [
@@ -58,15 +55,18 @@ const MusicModal = ({
     <StyledReactModal
       isOpen={modalIsOpen}
       ariaHideApp={false}
-      contentLabel="Minimal Modal Example"
+      contentLabel="Album Information"
     >
-      <div className="ui grid">
-        <div className="three wide column">
+      <button className={"ui button right floated "} onClick={handleCloseModal}>
+        Close Modal
+      </button>
+      <div className="ui stackable two column grid">
+        <div className="four wide column">
           <StyledImg src={img} alt={details.title} />
         </div>
-        <div className="nine wide column">
+        <div className="twelve wide column">
           <div className="ui grid container">
-            <div className="four wide column">
+            <div className="six wide column">
               {titles.map((title, index) => {
                 return (
                   <div className="ui row" key={index}>
@@ -75,7 +75,7 @@ const MusicModal = ({
                 );
               })}
             </div>
-            <div className="eight wide column">
+            <div className="ten wide column">
               {details.map((title, index) => {
                 return (
                   <div className="ui row" key={index}>
@@ -85,19 +85,16 @@ const MusicModal = ({
               })}
             </div>
           </div>
-          <FavoriteWrapper>
             <FavoriteIcon
               className="favorite icon"
               onClick={setFavorite}
               id={id}
               isFavorite={favorite}
             />
-            <button onClick={setFavorite} id={id}>
+            <button className={"ui button"} onClick={setFavorite} id={id}>
               {favorite ? "Remove from Favorites" : "Add to Favorites"}
             </button>
-          </FavoriteWrapper>
         </div>
-        <button onClick={handleCloseModal}>Close Modal</button>
       </div>
     </StyledReactModal>
   );
