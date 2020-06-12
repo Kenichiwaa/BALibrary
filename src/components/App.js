@@ -7,7 +7,8 @@ import MusicModal from "./MusicModal";
 
 const StyledNav = styled.div`
   &.ui.menu {
-    background-color: white;
+    background-color: #72B7AE;
+    padding-left: 1em;
   }
 `;
 
@@ -19,10 +20,10 @@ const StyledCardsWrapper = styled.div`
 `;
 
 function App() {
-  const [currAlbums, setCurrAlbums] = useState();
-  const [allAlbums, setAllAlbums] = useState();
-  const [isModalOpen, setIsOpen] = useState(false);
-  const [albumInfo, setAlbumInfo] = useState();
+  const [currAlbums, setCurrAlbums] = useState([]);
+  const [allAlbums, setAllAlbums] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [albumInfo, setAlbumInfo] = useState([]);
 
   const LOCAL_STORAGE_KEY = "MyABLAlbums";
 
@@ -30,7 +31,6 @@ function App() {
     const localStorageData = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_KEY)
     );
-
     if (localStorageData) {
       setCurrAlbums(JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)));
     } else {
@@ -42,7 +42,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currAlbums));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(allAlbums));
   });
 
   const handleOpenModal = (e) => {
@@ -53,11 +53,11 @@ function App() {
         }
       })
     );
-    setIsOpen(true);
+    setModalOpen(true);
   };
 
   function handleCloseModal() {
-    setIsOpen(false);
+    setModalOpen(false);
   }
 
   const setFavorite = (id) => {
@@ -70,6 +70,7 @@ function App() {
   };
 
   const getFavoriteAlbums = () => {
+    setModalOpen(false);
     let favoriteAlbums = [];
     currAlbums.map((album) => {
       if (album.favorite === true) return favoriteAlbums.push(album);
@@ -85,6 +86,9 @@ function App() {
   return (
     <div className="ui container">
       <StyledNav className="ui secondary pointing menu top fixed">
+      <div className=" menu left">
+        <h1>Top Albums </h1>
+        </div>
         <div className="right menu">
           <button className="ui item" onClick={geAllAlbums}>
             Top Albums

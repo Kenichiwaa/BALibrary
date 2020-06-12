@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const StyledReactModal = styled(ReactModal)`
   background-color: #c4d4d8;
-  height: 340px;
+  height: 410px;
   padding: 3em;
   padding-top: 6em;
   box-shadow: 0px 4px 7px 0px rgba(50, 50, 49, 0.4);

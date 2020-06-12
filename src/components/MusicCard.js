@@ -1,14 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const ImgCard = styled.div`
-&.ui.card {
-  width: 200px;
-  text-align: center;
-  padding: 1em;
-  background-color: lightgray;
-}
+  &.ui.card {
+    margin: 0 auto;
+    margin-bottom: 1em;
+    width: 180px;
+    text-align: center;
+    padding: 1em;
+    background-color: lightgray;
+  }
 `;
 
 const ArtistName = styled.div`
@@ -26,7 +27,7 @@ const FavoriteIcon = styled.i`
   color: ${({ isFavorite }) => (isFavorite ? "yellow" : "black")};
 `;
 
-const MusicCard = ({album, setFavorite, openModel}) => {
+const MusicCard = ({ album, setFavorite, openModel }) => {
   const id = album.id.attributes["im:id"];
   const img = album["im:image"][2].label;
   const artist = album["im:artist"].label;
@@ -35,24 +36,25 @@ const MusicCard = ({album, setFavorite, openModel}) => {
 
   return (
     <ImgCard className="ui card" onClick={openModel} id={id}>
-      <div className="image" >
-        <img src={img} alt={title}/>
+      <div className="image" id={id}>
+        <img src={img} id={id} alt={title} />
       </div>
-      <ArtistName className="header">{artist}</ArtistName>
-      <ArtistTitle className="title">{title}</ArtistTitle>
-      <FavoriteWrapper>
-        <FavoriteIcon className="favorite icon" onClick={setFavorite} id={id} isFavorite={favorite} />
+      <ArtistName className="header" id={id}>
+        {artist}
+      </ArtistName>
+      <ArtistTitle className="title" id={id}>
+        {title}
+      </ArtistTitle>
+      <FavoriteWrapper id={id}>
+        <FavoriteIcon
+          className="favorite icon"
+          onClick={setFavorite}
+          id={id}
+          isFavorite={favorite}
+        />
       </FavoriteWrapper>
     </ImgCard>
   );
 };
-
-// MusicCard.PropTypes = {
-//   album: PropTypes.object,
-//   setFavorite: PropTypes.func,
-//   openModel: PropTypes.func
-// };
-
-// MusicCard.defaultProps = {};
 
 export default MusicCard;
